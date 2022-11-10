@@ -28,17 +28,22 @@ runs:
         fetch-depth: 0
         path: backend-services
     - run: tar zxvf cockroach.linux-amd64.tgz
+      shell: bash
       working-directory: ./backend-services
     
     - uses: actions/setup-go@v3
       with:
         go-version: "1.19"
     - run: git config --global url."https://fernandobandeira:${{ inputs.access-token }}@github.com".insteadOf "https://github.com"
+      shell: bash
     - run: go env -w GOPRIVATE=github.com/getalternative
+      shell: bash
     - run: go mod download
+      shell: bash
       working-directory: ./${{ github.event.repository.name }}
     - name: Run Tests
       run: COCKROACH_BINARY="../backend-services/cockroach.linux-amd64/cockroach" make test-ci
+      shell: bash
       working-directory: ./${{ github.event.repository.name }}
     - name: Upload coverage
       run: |
@@ -47,4 +52,5 @@ runs:
         export CODACY_USERNAME=${{ inputs.codacy-username }}
         export CODACY_PROJECT_NAME=${{ github.event.repository.name }}
         bash <(curl -Ls https://coverage.codacy.com/get.sh) report --force-coverage-parser go -r coverage.txt
+      shell: bash
       working-directory: ./${{ github.event.repository.name }}
