@@ -45,12 +45,3 @@ runs:
       run: COCKROACH_BINARY="../backend-services/cockroach.linux-amd64/cockroach" make test-ci
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
-    - name: Upload coverage
-      run: |
-        export CODACY_API_TOKEN=${{ inputs.codacy-token }}
-        export CODACY_ORGANIZATION_PROVIDER=${{ inputs.codacy-organization-provider }}
-        export CODACY_USERNAME=${{ inputs.codacy-username }}
-        export CODACY_PROJECT_NAME=${{ github.event.repository.name }}
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report --force-coverage-parser go -r coverage.txt
-      shell: bash
-      working-directory: ./${{ github.event.repository.name }}
