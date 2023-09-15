@@ -16,11 +16,11 @@ runs:
   using: "composite"
   steps:
     - name: Checkout ${{ github.event.repository.name }} repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: ${{ github.event.repository.name }}
     - name: Checkout backend-services repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: getalternative/backend-services
         token: ${{ inputs.access-token }}
