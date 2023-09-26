@@ -1,4 +1,8 @@
 name: 'Generate Go App'
+inputs:
+  access-token:
+    description: 'Gthub Token to access private repositories'
+    required: true
 runs:
   using: "composite"
   # if: github.ref == 'refs/heads/renovate/entgo.io-ent-0.x' || github.ref == 'refs/heads/renovate/google.golang.org-grpc-1.x' || github.ref == 'refs/heads/renovate/github.com-99designs-gqlgen-0.x'
@@ -12,6 +16,7 @@ runs:
       uses: arduino/setup-protoc@v2
     - name: Install Go dependencies
       run: |
+        git config --global url."https://fernandobandeira:${{ inputs.access-token }}@github.com".insteadOf "https://github.com"
         go env -w GOPRIVATE=github.com/getalternative
         go mod download
         go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
