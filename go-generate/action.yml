@@ -1,27 +1,16 @@
-name: 'Testing Go App'
+name: 'Generate Go App'
 inputs:
   access-token:
     description: 'Gthub Token to access private repositories'
     required: true
 runs:
   using: "composite"
+  # if: github.ref == 'refs/heads/renovate/entgo.io-ent-0.x' || github.ref == 'refs/heads/renovate/google.golang.org-grpc-1.x' || github.ref == 'refs/heads/renovate/github.com-99designs-gqlgen-0.x'
   steps:
     - name: Checkout ${{ github.event.repository.name }} repo
       uses: actions/checkout@v4
       with:
         path: ${{ github.event.repository.name }}
-    - name: Checkout backend-services repo
-      uses: actions/checkout@v4
-      with:
-        repository: getalternative/backend-services
-        token: ${{ inputs.access-token }}
-        persist-credentials: false
-        fetch-depth: 0
-        path: backend-services
-    - run: tar zxvf cockroach.linux-amd64.tgz
-      shell: bash
-      working-directory: ./backend-services
-    
     - uses: actions/setup-go@v4
       with:
         go-version: "1.21"
@@ -31,8 +20,10 @@ runs:
       shell: bash
     - run: go mod download
       shell: bash
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v2
       working-directory: ./${{ github.event.repository.name }}
-    - name: Run Tests
-      run: COCKROACH_BINARY="../backend-services/cockroach.linux-amd64/cockroach" make test-ci
+    - name: Run Generate
+      run: go generate ./...
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
