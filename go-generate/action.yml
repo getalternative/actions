@@ -17,7 +17,7 @@ runs:
     - name: Install Protoc
       uses: arduino/setup-protoc@v2
     - name: Install Go dependencies
-    - run: |
+      run: |
         git config --global url."https://fernandobandeira:${{ inputs.access-token }}@github.com".insteadOf "https://github.com"
         go env -w GOPRIVATE=github.com/getalternative
         go mod download
