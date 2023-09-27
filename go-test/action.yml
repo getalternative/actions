@@ -46,6 +46,7 @@ runs:
       uses: arduino/setup-protoc@v2
       with:
         version: "24.3"
+        repo-token: ${{ inputs.access-token }}
 
     - name: Run Generate
       run: go generate ./...
