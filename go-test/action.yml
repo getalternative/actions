@@ -42,6 +42,11 @@ runs:
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
 
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v2
+      with:
+        version: "24.3"
+
     - name: Run Generate
       run: go generate ./...
       shell: bash
