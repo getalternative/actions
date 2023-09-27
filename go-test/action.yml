@@ -61,6 +61,7 @@ runs:
       run: |
         echo "Changes detected, stop test"
         exit 1
+      shell: bash
 
     - name: Run Tests
       run: COCKROACH_BINARY="../backend-services/cockroach.linux-amd64/cockroach" make test-ci
