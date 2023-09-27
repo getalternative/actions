@@ -56,8 +56,13 @@ runs:
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
 
-    - name: Run Tests
+    - name: Check changes
       if: steps.auto-commit-action.outputs.changes_detected == 'false'
+      run: |
+        echo "Changes detected, stop test"
+        exit 1
+
+    - name: Run Tests
       run: COCKROACH_BINARY="../backend-services/cockroach.linux-amd64/cockroach" make test-ci
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
