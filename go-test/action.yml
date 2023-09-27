@@ -55,7 +55,6 @@ runs:
       shell: bash
 
     - uses: stefanzweifel/git-auto-commit-action@v4
-      shell: bash
 
     - name: Check changes
       if: steps.auto-commit-action.outputs.changes_detected == 'false'
