@@ -53,7 +53,7 @@ runs:
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         repository: ${{ github.event.repository.name }}
 
