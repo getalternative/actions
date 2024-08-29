@@ -21,11 +21,6 @@ runs:
         fetch-depth: 0
         path: backend-services
 
-    - name: Setup CockroachDB
-      run: tar zxvf cockroach.linux-amd64.tgz
-      shell: bash
-      working-directory: ./backend-services
-    
     - name: Setup Golang
       uses: actions/setup-go@v4
       with:
@@ -66,6 +61,6 @@ runs:
       shell: bash
 
     - name: Run Tests
-      run: COCKROACH_BINARY="../backend-services/cockroach.linux-amd64/cockroach" make test-ci
+      run: make test-ci
       shell: bash
       working-directory: ./${{ github.event.repository.name }}
