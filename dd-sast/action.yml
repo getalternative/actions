@@ -15,9 +15,7 @@ runs:
   - name: Checkout ${{ github.event.repository.name }} repo
     uses: actions/checkout@v4   
     with:
-      path: ${{ github.event.repository.name }}
       token: ${{ inputs.access-token }}      
-      persist-credentials: false 
 
   - name: Check code meets quality and security standards
     uses: DataDog/datadog-static-analyzer-github-action@v1
