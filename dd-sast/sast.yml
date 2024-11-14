@@ -3,10 +3,10 @@ inputs:
   access-token:
     description: 'Github Token to access private repositories'
     required: true
-  dd_api_key:
+  dd-api-key:
     description: 'Datadog API Key'
     required: true
-  dd_app_key:
+  dd-app-key:
     description: 'Datadog APP Key'
     required: true  
 runs:
@@ -22,8 +22,8 @@ runs:
   - name: Check code meets quality and security standards
     uses: DataDog/datadog-static-analyzer-github-action@v1
     with:
-      dd_api_key: ${{ inputs.dd_api_key }}
-      dd_app_key: ${{ inputs.dd_app_key }}
+      dd-api-key: ${{ inputs.dd-api-key }}
+      dd-app-key: ${{ inputs.dd-app-key }}
       dd_site: datadoghq.com
       cpu_count: 2
       enable_performance_statistics: false
