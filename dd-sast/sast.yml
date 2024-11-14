@@ -1,0 +1,29 @@
+name: SAST
+inputs:
+  access-token:
+    description: 'Github Token to access private repositories'
+    required: true
+  dd_api_key:
+    description: 'Datadog API Key'
+    required: true
+  dd_app_key:
+    description: 'Datadog APP Key'
+    required: true  
+runs:
+  using: "composite"
+  steps:
+  - name: Checkout ${{ github.event.repository.name }} repo
+    uses: actions/checkout@v4   
+    with:
+      path: ${{ github.event.repository.name }}
+      token: ${{ inputs.access-token }}      
+      persist-credentials: false 
+
+  - name: Check code meets quality and security standards
+    uses: DataDog/datadog-static-analyzer-github-action@v1
+    with:
+      dd_api_key: ${{ inputs.dd_api_key }}
+      dd_app_key: ${{ inputs.dd_app_key }}
+      dd_site: datadoghq.com
+      cpu_count: 2
+      enable_performance_statistics: false
